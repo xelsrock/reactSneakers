@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Drawer = () => {
   return (
     <div style={{ display: 'none' }} className="overlay">
@@ -9,7 +7,6 @@ const Drawer = () => {
 
         </h2>
         
-
         <div className="items">
           <div className="cart__item d-flex align-center mb-20">
             <div style={{ backgroundImage: 'url(/img/sneakers/1.jpg)' }} className="cart__item_img"></div>
