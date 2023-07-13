@@ -1,32 +1,26 @@
-const Drawer = () => {
+const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
   return (
-    <div style={{ display: 'none' }} className="overlay">
+    <div className="overlay">
       <div className="drawer">
         <h2 className="mb-30 d-flex justify-between">Корзина
-          <img className="remove__btn cu-p" src="img/btn-remove.svg" alt="Удалить"/>
+          <img onClick={onClose} className="remove__btn cu-p" src="img/btn-remove.svg" alt="Удалить"/>
 
         </h2>
         
         <div className="items">
-          <div className="cart__item d-flex align-center mb-20">
-            <div style={{ backgroundImage: 'url(/img/sneakers/1.jpg)' }} className="cart__item_img"></div>
+          {
+            cartItems.map((obj) => (
+              <div className="cart__item d-flex align-center mb-20">
+                <div style={{ backgroundImage: `url(${obj.img})` }} className="cart__item_img"></div>
 
-            <div className="mr-20 flex">
-              <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-              <b>12 999 руб.</b>
-            </div>
-            <img className="remove__btn" src="img/btn-remove.svg" alt="Удалить"/>
-          </div>
-
-          <div className="cart__item d-flex align-center mb-20">
-            <div style={{ backgroundImage: 'url(/img/sneakers/1.jpg)' }} className="cart__item_img"></div>
-
-            <div className="mr-20 flex">
-              <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-              <b>12 999 руб.</b>
-            </div>
-            <img className="remove__btn" src="img/btn-remove.svg" alt="Удалить"/>
-          </div>
+                <div className="mr-20 flex">
+                  <p className="mb-5">{obj.name}</p>
+                  <b>{obj.price} руб.</b>
+                </div>
+                <img onClick={() => removeItemsCart(obj)} className="remove__btn" src="img/btn-remove.svg" alt="Удалить"/>
+              </div>
+            ))
+          }
         </div>
 
         <div className="cart__total_block">
