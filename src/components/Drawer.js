@@ -8,18 +8,17 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
         </h2>
         
         <div className="items">
-          {
+          {cartItems.length > 0 ? (
             cartItems.map((obj) => (
               <div className="cart__item d-flex align-center mb-20">
                 <div style={{ backgroundImage: `url(${obj.img})` }} className="cart__item_img"></div>
-
                 <div className="mr-20 flex">
                   <p className="mb-5">{obj.name}</p>
                   <b>{obj.price} руб.</b>
                 </div>
-                <img onClick={() => removeItemsCart(obj)} className="remove__btn" src="img/btn-remove.svg" alt="Удалить"/>
-              </div>
-            ))
+                <img onClick={() => removeItemsCart(obj.id)} className="remove__btn" src="img/btn-remove.svg" alt="Удалить"/>
+              </div> 
+            ))) : null
           }
         </div>
 
