@@ -1,8 +1,10 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom';
 import axios from 'axios'
-import Card from './components/Card/Card'
 import Header from './components/Header'
 import Drawer from './components/Drawer'
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
 
 // const arrSneakers = [
 //   {"id": "1", "name": "Мужские Кроссовки Nike Blazer Mid Suede", "price": 12999, "img": "/img/sneakers/1.jpg"},
@@ -23,29 +25,40 @@ function App() {
   const [cartOpen, setCartOpen] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState('');
+
+  const [favoriteItems, setFavoriteItems] = React.useState(() => {
+    return JSON.parse(localStorage.getItem('favorite')) || [];
+  });
+
   const [cartItems, setCartItems] = React.useState(() => {
     return JSON.parse(localStorage.getItem('sneakers')) || [];
   });
 
   React.useEffect(() => {
-    // fetch('https://64b0146cc60b8f941af53120.mockapi.io/items')
-    //   .then(res => res.json())
-    //   .then(data => setItems(data))
-    //   .catch(err => console.error(err));
-
     axios.get('https://64b0146cc60b8f941af53120.mockapi.io/items').then((res) => {
       setItems(res.data);
     });
   }, []);
 
   React.useEffect(() => {
-    console.log('ok');
     localStorage.setItem('sneakers', JSON.stringify(cartItems));
-  }, [cartItems])
+  }, [cartItems]);
+
+  React.useEffect(() => {
+    localStorage.setItem('favorite', JSON.stringify(favoriteItems));
+  }, [favoriteItems]);
 
   const onAddToCart = (obj) => {
-    if (!cartItems.includes(obj)) {
+    if (!cartItems.map(obj => obj.id).includes(obj.id)) {
       setCartItems([...cartItems, obj]);
+    }
+  };
+
+  const onAddToFavorite = (obj) => {
+    if (favoriteItems.find(favObj => favObj.id === obj.id)) {
+      setFavoriteItems(prev => prev.filter(item => item.id !== obj.id));
+    } else {
+      setFavoriteItems(prev => [...prev, obj]);
     }
   };
 
@@ -62,35 +75,34 @@ function App() {
       {cartOpen && <Drawer removeItemsCart={removeItemsCart} cartItems={cartItems} onClose={() => setCartOpen(false)}/>}
 
       <Header onClickCart={() => setCartOpen(true)}/>
-      <div className="content p-40">
-        <div className="d-flex align-center mb-40 justify-between">
-          <h1>
-            {
-              searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'
-            }
-          </h1>
-          
-          <div className="search__block d-flex">
-            <img src="img/search.svg" alt="Поиск"/>
-            <input onChange={onInputSearch} value={searchValue} placeholder="Поиск..."/>
-          </div>
-        </div>
 
-        <div className="d-flex flex-wrap">
-          {items
-            .filter((elem) => elem.name.toLowerCase().includes(searchValue.toLowerCase()))
-            .map((arr, i) => (
-              <Card 
-                key={i} 
-                name={arr.name} 
-                price={arr.price} 
-                img={arr.img}
-                onPlus={() => onAddToCart(arr)}
-                onFavorite={() => console.log('like')}
-              />
-            ))}
-        </div>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              items={items}
+              searchValue={searchValue}
+              onInputSearch={onInputSearch}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+            />
+          }
+          exact
+        />
+
+        <Route
+          path="/favorites"
+          element={
+            <Favorites 
+              items={favoriteItems}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+            />
+          }
+          exact
+        />
+      </Routes>
     </div>
   );
 }
