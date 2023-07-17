@@ -82,6 +82,7 @@ function App() {
           element={
             <Home
               items={items}
+              favoriteItems={favoriteItems}
               searchValue={searchValue}
               onInputSearch={onInputSearch}
               onAddToFavorite={onAddToFavorite}

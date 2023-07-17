@@ -5,7 +5,8 @@ const Home = ({
   searchValue,
   onInputSearch,
   onAddToFavorite,
-  onAddToCart 
+  onAddToCart,
+  favoriteItems 
 }) => {
   return (
     <div className="content p-40">
@@ -30,6 +31,7 @@ const Home = ({
                 key={i} 
                 onPlus={() => onAddToCart(arr)}
                 onLike={() => onAddToFavorite(arr)}
+                favorite={ favoriteItems.find(favObj => favObj.id === arr.id) ? true : false}
                 {...arr}
               />
             ))}
