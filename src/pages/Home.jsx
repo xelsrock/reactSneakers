@@ -21,8 +21,8 @@ const Home = ({
         key={i} 
         onPlus={() => onAddToCart(arr)}
         onLike={() => onAddToFavorite(arr)}
-        favorite={ favoriteItems.find(favObj => favObj.id === arr.id) ? true : false}
-        added={cartItems.some(obj => obj.id === arr.id)}
+        //? favorite={favoriteItems.find(favObj => favObj.id === arr.id) ? true : false}
+        //? added={cartItems.some(obj => obj.id === arr.id)} 
         loading={isLoading}
         {...arr}
       />
