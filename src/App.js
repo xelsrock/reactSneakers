@@ -40,7 +40,7 @@ function App() {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchData = async () => { 
+    const fetchData = async () => {
       const itemsRes = await axios.get('https://64b0146cc60b8f941af53120.mockapi.io/items');
       setItems(itemsRes.data);
       setCartCount(cartItems.map(obj => obj.price).reduce((sum, acc) => {
@@ -66,6 +66,7 @@ function App() {
       setCartCount(prev => prev + obj.price);
     } else {
       setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)));
+      setCartCount(prev => prev - obj.price);
     }
   };
 
