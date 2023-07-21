@@ -85,12 +85,10 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
               ? 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ'
               : `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
             } 
-            imgUrl={!orderComplete ? '../img/empty_cart.jpg' : '../img/complete_order.jpg'}
+            imgUrl={!orderComplete ? '..img/empty_cart.jpg' : '..img/complete_order.jpg'}
           />
         )
       }
-        
-       
       </div>
     </div>
   )
