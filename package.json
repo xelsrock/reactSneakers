@@ -2,7 +2,7 @@
   "name": "react-sheakers",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://xelsrock.github.io/reactSneakers",
+  "homepage": "https://xelsrock.github.io/reactSneakers/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Header = ({ onClickCart, cartCount }) => {
   return (
     <header className="d-flex justify-between align-center p-40">
-      <Link to='' exact='true'>
+      <Link to='/' exact='true'>
         <div className="d-flex align-center">
           <img width={40} height={40} src="img/logo.png" alt="Logo"/>
           <div>
@@ -19,12 +19,12 @@ const Header = ({ onClickCart, cartCount }) => {
           <span>{cartCount} руб.</span>
         </li>
         <li className="cu-p">
-          <Link to='favorites' exact='true'>
+          <Link to='/favorites' exact='true'>
             <img width={18} height={18} src="img/favorite.svg" alt="Избранное"/>
           </Link>
         </li>
         <li className="cu-p">
-          <Link to='orders' exact='true'>
+          <Link to='/orders' exact='true'>
             <img width={18} height={18} src="img/user.svg" alt="Профиль"/>
           </Link>
         </li>

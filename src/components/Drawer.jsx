@@ -39,8 +39,7 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
     <div className="overlay">
       <div className="drawer">
         <h2 className="mb-30 d-flex justify-between">Корзина
-          <img onClick={onClose} className="remove__btn cu-p" src="img/btn-remove.svg" alt="Удалить"/>
-
+          <img onClick={onClose} className="remove__btn cu-p" src="img/btn-remove.svg" alt="Закрыть"/>
         </h2>
         {cartItems.length > 0 ? (
           <>
@@ -74,7 +73,7 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
             </ul>
             
             <button onClick={onClickOrder} className="green__btn">Оформить заказ
-              <img src="img/arrow.svg" alt="Arrow"/>
+              <img src="img/arrow.svg" alt="Вернуться назад"/>
             </button>
           </div>
         </>
@@ -85,7 +84,7 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
               ? 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ'
               : `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
             } 
-            imgUrl={!orderComplete ? '..img/empty_cart.jpg' : '..img/complete_order.jpg'}
+            imgUrl={!orderComplete ? 'img/empty_cart.jpg' : 'img/complete_order.jpg'}
           />
         )
       }
