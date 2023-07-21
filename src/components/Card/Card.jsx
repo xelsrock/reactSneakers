@@ -16,14 +16,15 @@ const Card = ({
   
   const [isAdd, setIsAdd] = React.useState(added);
   const [isFavorite, setIsFavorite] = React.useState(favorite);
+  const obj = { id, name, price, img };
 
   const onClickPlus = () => {
-    onPlus({ id, name, price, img });
+    onPlus(obj);
     setIsAdd(!isAdd);
   };
 
   const onFavorite = () => {
-    onLike({ id, name, price, img })
+    onLike(obj);
     setIsFavorite(!isFavorite);
   };
 
@@ -47,9 +48,9 @@ const Card = ({
           </ContentLoader>
         ) : (
           <>
-            <div className={styles.favorite}>
+            {onLike && <div className={styles.favorite}>
               <img src={isFavorite ? 'img/heart-like.svg' : 'img/heart-unlike.svg'} alt="Добавить в Избранное" onClick={onFavorite}/>
-            </div>
+            </div>}
 
             <img width={133} height={112} src={img} alt="Sneakers"/>
             <h5>{name}</h5>
@@ -58,12 +59,12 @@ const Card = ({
                 <span>Цена:</span>
                 <b>{price} руб.</b>
               </div>
-              <img 
+              {onPlus && <img 
                 className={styles.plus} 
                 onClick={onClickPlus} 
                 src={isAdd ? '/img/btn-check.svg' : '/img/btn-plus.svg'}
                 alt="Plus"
-              />
+              />}
             </div>
           </>
         )

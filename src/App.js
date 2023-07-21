@@ -3,8 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import Header from './components/Header';
 import Drawer from './components/Drawer';
+
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
+import Orders from './pages/Orders';
 
 // const arrSneakers = [
 //   {"id": "1", "name": "Мужские Кроссовки Nike Blazer Mid Suede", "price": 12999, "img": "/img/sneakers/1.jpg"},
@@ -41,12 +43,17 @@ function App() {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const itemsRes = await axios.get('https://64b0146cc60b8f941af53120.mockapi.io/items');
-      setItems(itemsRes.data);
-      setCartCount(cartItems.map(obj => obj.price).reduce((sum, acc) => {
-        return sum + acc
-      }, 0));
-      setIsLoading(false);
+      try {
+        const itemsRes = await axios.get('https://64b0146cc60b8f941af53120.mockapi.io/items');
+        setItems(itemsRes.data);
+        setCartCount(cartItems.reduce((sum, obj) => {
+          return obj.price + sum;
+        }, 0));
+        setIsLoading(false);
+      } catch (error) {
+        alert('Ошибка при загрузке данных');
+        console.error(error)
+      }
     }
     
     fetchData();
@@ -88,7 +95,18 @@ function App() {
   };
 
   return (
-    <AppContext.Provider value={ {items, cartItems, favoriteItems, setCartOpen, setCartItems, cartCount} }>
+    <AppContext.Provider value={ 
+      {
+        items, 
+        cartItems, 
+        favoriteItems, 
+        setCartOpen, 
+        setCartItems, 
+        cartCount, 
+        setCartCount,
+        onAddToCart,
+        onAddToFavorite
+      }}>
       <div className="wrapper clear">
         {cartOpen && <Drawer 
           removeItemsCart={removeItemsCart} 
@@ -125,7 +143,15 @@ function App() {
                 onAddToCart={onAddToCart}
               />
             }
-            exact
+            exact='true'
+          />
+
+          <Route
+            path='/orders'
+            element={
+              <Orders/>
+            }
+            exact='true'
           />
         </Routes>
       </div>

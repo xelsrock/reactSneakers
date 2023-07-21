@@ -4,7 +4,7 @@ import { AppContext } from "../App";
 import axios from "axios";
 
 const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
-  const { setCartItems, cartCount } = React.useContext(AppContext);
+  const { setCartItems, cartCount, setCartCount } = React.useContext(AppContext);
   const [orderId, setOrderId] = React.useState(null);
   const [orderComplete, setOrderComplete] = React.useState(false);
   const [taxPrice, setTaxPrice] = React.useState(0);
@@ -15,12 +15,21 @@ const Drawer = ({ onClose, cartItems, removeItemsCart }) => {
 
   const onClickOrder = async () => {
     try {
+      const today = new Date();
       const { data } = await axios.post('https://64b0146cc60b8f941af53120.mockapi.io/order', {
-        items: cartItems
+        items: cartItems,
+        date: {
+          day:today.getDate(),
+          month: today.getMonth() + 1,
+          year: today.getFullYear(),
+          hours: today.getHours() <= 9 ? '0' + today.getHours() : today.getHours(),
+          minutes: today.getMinutes() <= 9 ? '0' + today.getMinutes() : today.getMinutes(),
+        },
       });
       setOrderId(data.id);
       setOrderComplete(true);
       setCartItems([]);
+      setCartCount(0);
     } catch (error) {
       alert(error, 'Не удалось создать заказ');
     }

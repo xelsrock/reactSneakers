@@ -16,7 +16,7 @@ const Home = ({
       elem.name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    return (isLoading ? [...Array(10)] : filtredItems).map((arr, i) => (
+    return (isLoading ? [...Array(8)] : filtredItems).map((arr, i) => (
       <Card 
         key={i} 
         onPlus={() => onAddToCart(arr)}

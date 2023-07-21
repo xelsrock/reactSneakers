@@ -24,7 +24,9 @@ const Header = ({ onClickCart, cartCount }) => {
           </Link>
         </li>
         <li className="cu-p">
-          <img width={18} height={18} src="/img/user.svg" alt="Профиль"/>
+          <Link to='/orders' exact='true'>
+            <img width={18} height={18} src="/img/user.svg" alt="Профиль"/>
+          </Link>
         </li>
       </ul>
     </header>
